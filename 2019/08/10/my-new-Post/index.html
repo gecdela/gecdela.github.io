@@ -6,22 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gecdela.github.io">
-  <title>Mysql学习笔记--索引 | ╮呮想永逺垨。</title>
+  <title>Markdown 编辑阅读器 | ╮呮想永逺垨。</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="2.2 MySQL索引类型 2.2.1 按底层数据结构实现分  二叉树 红黑树 哈希表 B-Tree  2.2.2 按类型分 （1）普通索引 这是最基本的索引，它没有任何限制。它有以下几种创建方式： ◆创建索引 CREATE INDEX indexName ON mytable(username(length));  如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BL">
+  <meta name="description" content="欢迎使用 Cmd Markdown 编辑阅读器 我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，Cmd Markdown 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：   整理知识，学习笔记 发布日记，杂文，所见所想 撰写发布技术文稿（代码支持） 撰写发布学术论文（LaTeX 公式支持）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql学习笔记--索引">
-<meta property="og:url" content="https://gecdela.github.io/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:title" content="Markdown 编辑阅读器">
+<meta property="og:url" content="https://gecdela.github.io/2019/08/10/my-new-Post/index.html">
 <meta property="og:site_name" content="╮呮想永逺垨。">
-<meta property="og:description" content="2.2 MySQL索引类型 2.2.1 按底层数据结构实现分  二叉树 红黑树 哈希表 B-Tree  2.2.2 按类型分 （1）普通索引 这是最基本的索引，它没有任何限制。它有以下几种创建方式： ◆创建索引 CREATE INDEX indexName ON mytable(username(length));  如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BL">
+<meta property="og:description" content="欢迎使用 Cmd Markdown 编辑阅读器 我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，Cmd Markdown 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：   整理知识，学习笔记 发布日记，杂文，所见所想 撰写发布技术文稿（代码支持） 撰写发布学术论文（LaTeX 公式支持）">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-28T03:27:07.000Z">
-<meta property="article:modified_time" content="2020-08-28T03:28:23.009Z">
+<meta property="og:image" content="https://www.zybuluo.com/static/img/logo.png">
+<meta property="og:image" content="https://www.zybuluo.com/static/img/toolbar-editor.png">
+<meta property="og:image" content="https://www.zybuluo.com/static/img/toolbar-manager.jpg">
+<meta property="og:image" content="https://www.zybuluo.com/static/img/toolbar-reader.jpg">
+<meta property="og:image" content="https://www.zybuluo.com/static/img/file-list.png">
+<meta property="article:published_time" content="2019-08-10T12:56:38.000Z">
+<meta property="article:modified_time" content="2020-08-28T08:15:59.358Z">
 <meta property="article:author" content="Gec">
-<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.zybuluo.com/static/img/logo.png">
   
     <link rel="alternative" href="/atom.xml" title="╮呮想永逺垨。" type="application/atom+xml">
   
@@ -76,9 +81,11 @@
 			
 				<li><a href="/" target="_blank">主页</a></li>
 			
-				<li><a href="/" target="_blank">技术笔记</a></li>
+				<li><a href="/technology/" target="_blank">技术笔记</a></li>
 			
 				<li><a href="/suibi/" target="_blank">随笔</a></li>
+			
+				<li><a href="/archives/" target="_blank">分类</a></li>
 			
 			</ul>
 		</nav>
@@ -100,13 +107,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" href="#" title="GitHub" target="_blank"><i class="icon-github"></i></a>
+					<a class="github" href="https://github.com/gecdela/" title="GitHub" target="_blank"><i class="icon-github"></i></a>
 				
-					<a class="gitee" href="#" title="gitee" target="_blank"><i class="icon-gitee"></i></a>
+					<a class="gitee" href="https://gitee.com/gecdela" title="gitee" target="_blank"><i class="icon-gitee"></i></a>
 				
-					<a class="jianshu" href="#" title="jianshu" target="_blank"><i class="icon-jianshu"></i></a>
+					<a class="jianshu" href="https://www.jianshu.com/u/36af1107c921" title="jianshu" target="_blank"><i class="icon-jianshu"></i></a>
 				
-					<a class="cnblog" href="#" title="cnblog" target="_blank"><i class="icon-cnblog"></i></a>
+					<a class="cnblog" href="https://blog.csdn.net/qq_23729503" title="cnblog" target="_blank"><i class="icon-cnblog"></i></a>
 				
 			</div>
 		
@@ -148,18 +155,20 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="GitHub"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/gecdela/" title="GitHub"><i class="icon-github"></i></a>
 			        
-						<a class="gitee" target="_blank" href="#" title="gitee"><i class="icon-gitee"></i></a>
+						<a class="gitee" target="_blank" href="https://gitee.com/gecdela" title="gitee"><i class="icon-gitee"></i></a>
 			        
-						<a class="jianshu" target="_blank" href="#" title="jianshu"><i class="icon-jianshu"></i></a>
+						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/36af1107c921" title="jianshu"><i class="icon-jianshu"></i></a>
 			        
-						<a class="cnblog" target="_blank" href="#" title="cnblog"><i class="icon-cnblog"></i></a>
+						<a class="cnblog" target="_blank" href="https://blog.csdn.net/qq_23729503" title="cnblog"><i class="icon-cnblog"></i></a>
 			        
 				</div>
 			</nav>
@@ -168,11 +177,13 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">技术笔记</a></li>
+					<li style="width: 25%"><a href="/technology/">技术笔记</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/suibi/">随笔</a></li>
+					<li style="width: 25%"><a href="/suibi/">随笔</a></li>
+		        
+					<li style="width: 25%"><a href="/archives/">分类</a></li>
 		        
 				</ul>
 			</nav>
@@ -188,14 +199,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Mysql学习笔记-索引" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-my-new-Post" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      Mysql学习笔记--索引
+      Markdown 编辑阅读器
     </h1>
   
 
@@ -207,8 +218,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/" class="archive-article-date">
-        <time datetime="2020-08-28T03:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-28</time>
+<a href="/2019/08/10/my-new-Post/" class="archive-article-date">
+        <time datetime="2019-08-10T12:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
 </a>
 
   
@@ -221,7 +232,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">699字</span>
+      <span class="post-count">2.2k字</span>
     </span>
   </span>
 
@@ -230,7 +241,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
+      <span class="post-count">8分</span>
     </span>
   </span>
 </div>
@@ -241,49 +252,92 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p><strong>2.2 MySQL索引类型</strong></p>
-<p>2.2.1 按底层数据结构实现分</p>
+    <h1 id="欢迎使用-Cmd-Markdown-编辑阅读器"><a href="#欢迎使用-Cmd-Markdown-编辑阅读器" class="headerlink" title="欢迎使用 Cmd Markdown 编辑阅读器"></a>欢迎使用 Cmd Markdown 编辑阅读器</h1><hr>
+<p>我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，<strong>Cmd Markdown</strong> 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：</p>
+<blockquote>
 <ul>
-<li>二叉树</li>
-<li>红黑树</li>
-<li>哈希表</li>
-<li>B-Tree</li>
+<li>整理知识，学习笔记</li>
+<li>发布日记，杂文，所见所想</li>
+<li>撰写发布技术文稿（代码支持）</li>
+<li>撰写发布学术论文（LaTeX 公式支持）<a id="more"></a>
+<img src="https://www.zybuluo.com/static/img/logo.png" alt="cmd-markdown-logo"></li>
 </ul>
-<p>2.2.2 按类型分</p>
-<p><strong>（1）普通索引</strong></p>
-<p>这是最基本的索引，它没有任何限制。它有以下几种创建方式：</p>
-<p>◆创建索引</p>
-<p>CREATE INDEX indexName ON mytable(username(length)); </p>
-<p>如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BLOB和TEXT类型，必须指定 length，下同。</p>
-<p>◆修改表结构</p>
-<p>ALTER mytable ADD INDEX [indexName] ON (username(length)) </p>
-<p>◆创建表的时候直接指定</p>
-<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   INDEX [indexName] (username(length))   );  </p>
-<p>删除索引的语法：</p>
-<p>DROP INDEX [indexName] ON mytable; </p>
-<p><strong>（2）唯一索引</strong></p>
-<p>它与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一。它有以下几种创建方式：</p>
-<p>◆创建索引</p>
-<p>CREATE UNIQUE INDEX indexName ON mytable(username(length)) </p>
-<p>◆修改表结构</p>
-<p>ALTER mytable ADD UNIQUE [indexName] ON (username(length)) </p>
-<p>◆创建表的时候直接指定</p>
-<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   UNIQUE [indexName] (username(length))   );  </p>
-<p> <strong>（3）主键索引</strong></p>
-<p>它是一种特殊的唯一索引，不允许有空值。一般是在建表的时候同时创建主键索引：</p>
-<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   PRIMARY KEY(ID)   );  </p>
-<p>当然也可以用 ALTER 命令。记住：一个表只能有一个主键。</p>
-<p><strong>（4）组合索引</strong></p>
-<p>为了形象地对比单列索引和组合索引，为表添加多个字段：</p>
-<p> CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   city VARCHAR(50) NOT NULL,   age INT NOT NULL  );  </p>
-<p>为了进一步榨取MySQL的效率，就要考虑建立组合索引。就是将 name, city, age建到一个索引里：</p>
-<p>ALTER TABLE mytable ADD INDEX name_city_age (name(10),city,age); </p>
-<p>如果分别在 usernname，city，age上建立单列索引，让该表有3个单列索引，查询时和上述的组合索引效率也会大不一样，远远低于我们的组合索引。虽然此时有了三个索引，但MySQL只能用到其中的那个它认为似乎是最有效率的单列索引。</p>
-<p>建立这样的组合索引，其实是相当于分别建立了下面三组组合索引：</p>
-<p>usernname,city,age  usernname,city  usernname  </p>
-<p>为什么没有 city，age这样的组合索引呢？这是因为MySQL组合索引“最左前缀”的结果。简单的理解就是只从最左面的开始组合。并不是只要包含这三列的查询都会用到该组合索引，下面的几个SQL就会用到这个组合索引：</p>
-<p>SELECT * FROM mytable WHREE username=”admin” AND city=”郑州”  SELECT * FROM mytable WHREE username=”admin” </p>
-<p>而下面几个则不会用到： SELECT * FROM mytable WHREE age=20 AND city=”郑州”   SELECT * FROM mytable WHREE city=”郑州” </p>
+</blockquote>
+<p>除了您现在看到的这个 Cmd Markdown 在线版本，您还可以前往以下网址下载：</p>
+<h3 id="Windows-Mac-Linux-全平台客户端"><a href="#Windows-Mac-Linux-全平台客户端" class="headerlink" title="Windows/Mac/Linux 全平台客户端"></a><a target="_blank" rel="noopener" href="https://www.zybuluo.com/cmd/">Windows/Mac/Linux 全平台客户端</a></h3><blockquote>
+<p>请保留此份 Cmd Markdown 的欢迎稿兼使用说明，如需撰写新稿件，点击顶部工具栏右侧的 <i class="icon-file"></i> <strong>新文稿</strong> 或者使用快捷键 <code>Ctrl+Alt+N</code>。</p>
+</blockquote>
+<hr>
+<h2 id="什么是-Markdown"><a href="#什么是-Markdown" class="headerlink" title="什么是 Markdown"></a>什么是 Markdown</h2><p>Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，<strong>粗体</strong> 或者 <em>斜体</em> 某些文字，更棒的是，它还可以</p>
+<h3 id="1-制作一份待办事宜-Todo-列表"><a href="#1-制作一份待办事宜-Todo-列表" class="headerlink" title="1. 制作一份待办事宜 Todo 列表"></a>1. 制作一份待办事宜 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#13-%E5%BE%85%E5%8A%9E%E4%BA%8B%E5%AE%9C-todo-%E5%88%97%E8%A1%A8">Todo 列表</a></h3><ul>
+<li><input disabled type="checkbox"> 支持以 PDF 格式导出文稿</li>
+<li><input disabled type="checkbox"> 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率</li>
+<li><input checked disabled type="checkbox"> 新增 Todo 列表功能</li>
+<li><input checked disabled type="checkbox"> 修复 LaTex 公式渲染问题</li>
+<li><input checked disabled type="checkbox"> 新增 LaTex 公式编号功能</li>
+</ul>
+<h3 id="2-书写一个质能守恒公式-LaTeX"><a href="#2-书写一个质能守恒公式-LaTeX" class="headerlink" title="2. 书写一个质能守恒公式[^LaTeX]"></a>2. 书写一个质能守恒公式[^LaTeX]</h3><p>$$E=mc^2$$</p>
+<h3 id="3-高亮一段代码-code"><a href="#3-高亮一段代码-code" class="headerlink" title="3. 高亮一段代码[^code]"></a>3. 高亮一段代码[^code]</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@requires_authorization</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># A comment</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">&#x27;hello world&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-高效绘制-流程图"><a href="#4-高效绘制-流程图" class="headerlink" title="4. 高效绘制 流程图"></a>4. 高效绘制 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#7-%E6%B5%81%E7%A8%8B%E5%9B%BE">流程图</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: Start</span><br><span class="line">op&#x3D;&gt;operation: Your Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-高效绘制-序列图"><a href="#5-高效绘制-序列图" class="headerlink" title="5. 高效绘制 序列图"></a>5. 高效绘制 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#8-%E5%BA%8F%E5%88%97%E5%9B%BE">序列图</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-高效绘制-甘特图"><a href="#6-高效绘制-甘特图" class="headerlink" title="6. 高效绘制 甘特图"></a>6. 高效绘制 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#9-%E7%94%98%E7%89%B9%E5%9B%BE">甘特图</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">title 项目开发流程</span><br><span class="line">section 项目确定</span><br><span class="line">    需求分析       :a1, 2016-06-22, 3d</span><br><span class="line">    可行性报告     :after a1, 5d</span><br><span class="line">    概念验证       : 5d</span><br><span class="line">section 项目实施</span><br><span class="line">    概要设计      :2016-07-05  , 5d</span><br><span class="line">    详细设计      :2016-07-08, 10d</span><br><span class="line">    编码          :2016-07-15, 10d</span><br><span class="line">    测试          :2016-07-22, 5d</span><br><span class="line">section 发布验收</span><br><span class="line">    发布: 2d</span><br><span class="line">    验收: 3d</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-绘制表格"><a href="#7-绘制表格" class="headerlink" title="7. 绘制表格"></a>7. 绘制表格</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算机</td>
+<td align="right">$1600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td align="right">$12</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td align="right">$1</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="8-更详细语法说明"><a href="#8-更详细语法说明" class="headerlink" title="8. 更详细语法说明"></a>8. 更详细语法说明</h3><p>想要查看更详细的语法说明，可以参考我们准备的 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown">Cmd Markdown 简明语法手册</a>，进阶用户可以参考 <a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown-%E9%AB%98%E9%98%B6%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C">Cmd Markdown 高阶语法手册</a> 了解更多高级功能。</p>
+<p>总而言之，不同于其它 <em>所见即所得</em> 的编辑器：你只需使用键盘专注于书写文本内容，就可以生成印刷级的排版格式，省却在键盘和工具栏之间来回切换，调整内容和格式的麻烦。<strong>Markdown 在流畅的书写和印刷级的阅读体验之间找到了平衡。</strong> 目前它已经成为世界上最大的技术分享网站 GitHub 和 技术问答网站 StackOverFlow 的御用书写格式。</p>
+<hr>
+<h2 id="什么是-Cmd-Markdown"><a href="#什么是-Cmd-Markdown" class="headerlink" title="什么是 Cmd Markdown"></a>什么是 Cmd Markdown</h2><p>您可以使用很多工具书写 Markdown，但是 Cmd Markdown 是这个星球上我们已知的、最好的 Markdown 工具——没有之一 ：）因为深信文字的力量，所以我们和你一样，对流畅书写，分享思想和知识，以及阅读体验有极致的追求，我们把对于这些诉求的回应整合在 Cmd Markdown，并且一次，两次，三次，乃至无数次地提升这个工具的体验，最终将它演化成一个 <strong>编辑/发布/阅读</strong> Markdown 的在线平台——您可以在任何地方，任何系统/设备上管理这里的文字。</p>
+<h3 id="1-实时同步预览"><a href="#1-实时同步预览" class="headerlink" title="1. 实时同步预览"></a>1. 实时同步预览</h3><p>我们将 Cmd Markdown 的主界面一分为二，左边为<strong>编辑区</strong>，右边为<strong>预览区</strong>，在编辑区的操作会实时地渲染到预览区方便查看最终的版面效果，并且如果你在其中一个区拖动滚动条，我们有一个巧妙的算法把另一个区的滚动条同步到等价的位置，超酷！</p>
+<h3 id="2-编辑工具栏"><a href="#2-编辑工具栏" class="headerlink" title="2. 编辑工具栏"></a>2. 编辑工具栏</h3><p>也许您还是一个 Markdown 语法的新手，在您完全熟悉它之前，我们在 <strong>编辑区</strong> 的顶部放置了一个如下图所示的工具栏，您可以使用鼠标在工具栏上调整格式，不过我们仍旧鼓励你使用键盘标记格式，提高书写的流畅度。</p>
+<p><img src="https://www.zybuluo.com/static/img/toolbar-editor.png" alt="tool-editor"></p>
+<h3 id="3-编辑模式"><a href="#3-编辑模式" class="headerlink" title="3. 编辑模式"></a>3. 编辑模式</h3><p>完全心无旁骛的方式编辑文字：点击 <strong>编辑工具栏</strong> 最右侧的拉伸按钮或者按下 <code>Ctrl + M</code>，将 Cmd Markdown 切换到独立的编辑模式，这是一个极度简洁的写作环境，所有可能会引起分心的元素都已经被挪除，超清爽！</p>
+<h3 id="4-实时的云端文稿"><a href="#4-实时的云端文稿" class="headerlink" title="4. 实时的云端文稿"></a>4. 实时的云端文稿</h3><p>为了保障数据安全，Cmd Markdown 会将您每一次击键的内容保存至云端，同时在 <strong>编辑工具栏</strong> 的最右侧提示 <code>已保存</code> 的字样。无需担心浏览器崩溃，机器掉电或者地震，海啸——在编辑的过程中随时关闭浏览器或者机器，下一次回到 Cmd Markdown 的时候继续写作。</p>
+<h3 id="5-离线模式"><a href="#5-离线模式" class="headerlink" title="5. 离线模式"></a>5. 离线模式</h3><p>在网络环境不稳定的情况下记录文字一样很安全！在您写作的时候，如果电脑突然失去网络连接，Cmd Markdown 会智能切换至离线模式，将您后续键入的文字保存在本地，直到网络恢复再将他们传送至云端，即使在网络恢复前关闭浏览器或者电脑，一样没有问题，等到下次开启 Cmd Markdown 的时候，她会提醒您将离线保存的文字传送至云端。简而言之，我们尽最大的努力保障您文字的安全。</p>
+<h3 id="6-管理工具栏"><a href="#6-管理工具栏" class="headerlink" title="6. 管理工具栏"></a>6. 管理工具栏</h3><p>为了便于管理您的文稿，在 <strong>预览区</strong> 的顶部放置了如下所示的 <strong>管理工具栏</strong>：</p>
+<p><img src="https://www.zybuluo.com/static/img/toolbar-manager.jpg" alt="tool-manager"></p>
+<p>通过管理工具栏可以：</p>
+<p><i class="icon-share"></i> 发布：将当前的文稿生成固定链接，在网络上发布，分享<br><i class="icon-file"></i> 新建：开始撰写一篇新的文稿<br><i class="icon-trash"></i> 删除：删除当前的文稿<br><i class="icon-cloud"></i> 导出：将当前的文稿转化为 Markdown 文本或者 Html 格式，并导出到本地<br><i class="icon-reorder"></i> 列表：所有新增和过往的文稿都可以在这里查看、操作<br><i class="icon-pencil"></i> 模式：切换 普通/Vim/Emacs 编辑模式</p>
+<h3 id="7-阅读工具栏"><a href="#7-阅读工具栏" class="headerlink" title="7. 阅读工具栏"></a>7. 阅读工具栏</h3><p><img src="https://www.zybuluo.com/static/img/toolbar-reader.jpg" alt="tool-manager"></p>
+<p>通过 <strong>预览区</strong> 右上角的 <strong>阅读工具栏</strong>，可以查看当前文稿的目录并增强阅读体验。</p>
+<p>工具栏上的五个图标依次为：</p>
+<p><i class="icon-list"></i> 目录：快速导航当前文稿的目录结构以跳转到感兴趣的段落<br><i class="icon-chevron-sign-left"></i> 视图：互换左边编辑区和右边预览区的位置<br><i class="icon-adjust"></i> 主题：内置了黑白两种模式的主题，试试 <strong>黑色主题</strong>，超炫！<br><i class="icon-desktop"></i> 阅读：心无旁骛的阅读模式提供超一流的阅读体验<br><i class="icon-fullscreen"></i> 全屏：简洁，简洁，再简洁，一个完全沉浸式的写作和阅读环境</p>
+<h3 id="8-阅读模式"><a href="#8-阅读模式" class="headerlink" title="8. 阅读模式"></a>8. 阅读模式</h3><p>在 <strong>阅读工具栏</strong> 点击 <i class="icon-desktop"></i> 或者按下 <code>Ctrl+Alt+M</code> 随即进入独立的阅读模式界面，我们在版面渲染上的每一个细节：字体，字号，行间距，前背景色都倾注了大量的时间，努力提升阅读的体验和品质。</p>
+<h3 id="9-标签、分类和搜索"><a href="#9-标签、分类和搜索" class="headerlink" title="9. 标签、分类和搜索"></a>9. 标签、分类和搜索</h3><p>在编辑区任意行首位置输入以下格式的文字可以标签当前文档：</p>
+<p>标签： 未分类</p>
+<p>标签以后的文稿在【文件列表】（Ctrl+Alt+F）里会按照标签分类，用户可以同时使用键盘或者鼠标浏览查看，或者在【文件列表】的搜索文本框内搜索标题关键字过滤文稿，如下图所示：</p>
+<p><img src="https://www.zybuluo.com/static/img/file-list.png" alt="file-list"></p>
+<h3 id="10-文稿发布和分享"><a href="#10-文稿发布和分享" class="headerlink" title="10. 文稿发布和分享"></a>10. 文稿发布和分享</h3><p>在您使用 Cmd Markdown 记录，创作，整理，阅读文稿的同时，我们不仅希望它是一个有力的工具，更希望您的思想和知识通过这个平台，连同优质的阅读体验，将他们分享给有相同志趣的人，进而鼓励更多的人来到这里记录分享他们的思想和知识，尝试点击 <i class="icon-share"></i> (Ctrl+Alt+P) 发布这份文档给好友吧！</p>
+<hr>
+<p>再一次感谢您花费时间阅读这份欢迎稿，点击 <i class="icon-file"></i> (Ctrl+Alt+N) 开始撰写新的文稿吧！祝您在这里记录、阅读、分享愉快！</p>
+<p>作者 <a target="_blank" rel="noopener" href="http://weibo.com/ghosert">@ghosert</a><br>2016 年 07月 07日    </p>
+<p>[^LaTeX]: 支持 <strong>LaTeX</strong> 编辑显示支持，例如：$\sum_{i=1}^n a_i=0$， 访问 <a target="_blank" rel="noopener" href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">MathJax</a> 参考更多使用方法。</p>
+<p>[^code]: 代码高亮功能支持包括 Java, Python, JavaScript 在内的，<strong>四十一</strong>种主流编程语言。</p>
 
     
 
@@ -298,7 +352,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://gecdela.github.io/2020/08/28/Mysql学习笔记-索引/" title="Mysql学习笔记--索引" target="_blank">https://gecdela.github.io/2020/08/28/Mysql学习笔记-索引/</a>
+          <a href="https://gecdela.github.io/2019/08/10/my-new-Post/" title="Markdown 编辑阅读器" target="_blank">https://gecdela.github.io/2019/08/10/my-new-Post/</a>
         </li>
         
         <li>
@@ -315,17 +369,6 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
@@ -376,7 +419,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://gecdela.github.io/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://gecdela.github.io/2019/08/10/my-new-Post/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -391,20 +434,15 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/08/28/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/18/%E5%8F%AF%E6%90%9C%E7%B4%A2%E5%8A%A0%E5%AF%86%E7%A0%94%E7%A9%B6-%E5%89%8D%E5%90%91%E9%9A%90%E7%A7%81%E5%92%8C%E5%90%8E%E5%90%91%E9%9A%90%E7%A7%81/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Java学习笔记-面向对象
+          可搜索加密研究--前向隐私和后向隐私
         
       </div>
     </a>
   
-  
-    <a href="/2020/08/28/Latex%E6%8E%92%E7%89%88%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Latex排版学习总结</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
@@ -566,6 +604,10 @@
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">可搜索加密</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -616,7 +658,7 @@
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://github.com/JoeyBling" target="_blank" class="search-title" >
+              <a href="https://github.com/gecdela/" target="_blank" class="search-title" >
                 
                   <i class="icon-link icon"></i>
                 
@@ -625,7 +667,7 @@
             </li>
           
             <li class="search-li">
-              <a href="https://gitee.com/zhousiwei" target="_blank" class="search-title" >
+              <a href="https://gitee.com/gecdela" target="_blank" class="search-title" >
                 
                   <i class="icon-link icon"></i>
                 
@@ -634,7 +676,7 @@
             </li>
           
             <li class="search-li">
-              <a href="https://www.jianshu.com/u/02cbf31a043a" target="_blank" class="search-title" >
+              <a href="https://www.jianshu.com/u/36af1107c921" target="_blank" class="search-title" >
                 
                   <i class="icon-link icon"></i>
                 
@@ -643,7 +685,7 @@
             </li>
           
             <li class="search-li">
-              <a href="https://blog.csdn.net/qq_30930805" target="_blank" class="search-title" >
+              <a href="https://blog.csdn.net/qq_23729503" target="_blank" class="search-title" >
                 
                   <i class="icon-link icon"></i>
                 
