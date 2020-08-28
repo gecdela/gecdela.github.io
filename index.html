@@ -6,7 +6,7 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://gecdela.github.io">
-  <title>郭尔川的博客</title>
+  <title>╮呮想永逺垨。</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
@@ -16,15 +16,15 @@
   
   <meta name="description" content="编程与诗词的不期而遇">
 <meta property="og:type" content="website">
-<meta property="og:title" content="郭尔川的博客">
+<meta property="og:title" content="╮呮想永逺垨。">
 <meta property="og:url" content="https://gecdela.github.io/index.html">
-<meta property="og:site_name" content="郭尔川的博客">
+<meta property="og:site_name" content="╮呮想永逺垨。">
 <meta property="og:description" content="编程与诗词的不期而遇">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Gec">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="郭尔川的博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="╮呮想永逺垨。" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -269,6 +269,134 @@
 
 
   
+    <article id="post-Mysql学习笔记-索引" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/" target="_blank">Mysql学习笔记--索引</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/" class="archive-article-date">
+        <time datetime="2020-08-28T03:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>2.2 MySQL索引类型</strong></p>
+<p>2.2.1 按底层数据结构实现分</p>
+<ul>
+<li>二叉树</li>
+<li>红黑树</li>
+<li>哈希表</li>
+<li>B-Tree</li>
+</ul>
+<p>2.2.2 按类型分</p>
+<p><strong>（1）普通索引</strong></p>
+<p>这是最基本的索引，它没有任何限制。它有以下几种创建方式：</p>
+<p>◆创建索引</p>
+<p>CREATE INDEX indexName ON mytable(username(length)); </p>
+<p>如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BLOB和TEXT类型，必须指定 length，下同。</p>
+<p>◆修改表结构</p>
+<p>ALTER mytable ADD INDEX [indexName] ON (username(length)) </p>
+<p>◆创建表的时候直接指定</p>
+<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   INDEX [indexName] (username(length))   );  </p>
+<p>删除索引的语法：</p>
+<p>DROP INDEX [indexName] ON mytable; </p>
+<p><strong>（2）唯一索引</strong></p>
+<p>它与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一。它有以下几种创建方式：</p>
+<p>◆创建索引</p>
+<p>CREATE UNIQUE INDEX indexName ON mytable(username(length)) </p>
+<p>◆修改表结构</p>
+<p>ALTER mytable ADD UNIQUE [indexName] ON (username(length)) </p>
+<p>◆创建表的时候直接指定</p>
+<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   UNIQUE [indexName] (username(length))   );  </p>
+<p> <strong>（3）主键索引</strong></p>
+<p>它是一种特殊的唯一索引，不允许有空值。一般是在建表的时候同时创建主键索引：</p>
+<p>CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   PRIMARY KEY(ID)   );  </p>
+<p>当然也可以用 ALTER 命令。记住：一个表只能有一个主键。</p>
+<p><strong>（4）组合索引</strong></p>
+<p>为了形象地对比单列索引和组合索引，为表添加多个字段：</p>
+<p> CREATE TABLE mytable(   ID INT NOT NULL,   username VARCHAR(16) NOT NULL,   city VARCHAR(50) NOT NULL,   age INT NOT NULL  );  </p>
+<p>为了进一步榨取MySQL的效率，就要考虑建立组合索引。就是将 name, city, age建到一个索引里：</p>
+<p>ALTER TABLE mytable ADD INDEX name_city_age (name(10),city,age); </p>
+<p>如果分别在 usernname，city，age上建立单列索引，让该表有3个单列索引，查询时和上述的组合索引效率也会大不一样，远远低于我们的组合索引。虽然此时有了三个索引，但MySQL只能用到其中的那个它认为似乎是最有效率的单列索引。</p>
+<p>建立这样的组合索引，其实是相当于分别建立了下面三组组合索引：</p>
+<p>usernname,city,age  usernname,city  usernname  </p>
+<p>为什么没有 city，age这样的组合索引呢？这是因为MySQL组合索引“最左前缀”的结果。简单的理解就是只从最左面的开始组合。并不是只要包含这三列的查询都会用到该组合索引，下面的几个SQL就会用到这个组合索引：</p>
+<p>SELECT * FROM mytable WHREE username=”admin” AND city=”郑州”  SELECT * FROM mytable WHREE username=”admin” </p>
+<p>而下面几个则不会用到： SELECT * FROM mytable WHREE age=20 AND city=”郑州”   SELECT * FROM mytable WHREE city=”郑州” </p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/08/28/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%B4%A2%E5%BC%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Latex排版学习总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -319,6 +447,96 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/08/28/Latex%E6%8E%92%E7%89%88%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-latex排版总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/08/28/latex%E6%8E%92%E7%89%88%E6%80%BB%E7%BB%93/" target="_blank">latex排版总结</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/08/28/latex%E6%8E%92%E7%89%88%E6%80%BB%E7%BB%93/" class="archive-article-date">
+        <time datetime="2020-08-28T01:58:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="文档基本结构"><a href="#文档基本结构" class="headerlink" title="文档基本结构"></a>文档基本结构</h1><h1 id="1-导言区"><a href="#1-导言区" class="headerlink" title="1 导言区"></a>1 导言区</h1><p>\begin{document}与\documentclass{article}之间的部分被称为导言区。导言区中的控制序列，通常会影响到整个输出文档。</p>
+<h2 id="1-1-宏包"><a href="#1-1-宏包" class="headerlink" title="1.1 宏包"></a>1.1 宏包</h2><p>\usepackage{包名}—-导入宏包</p>
+<p>\usepackage{mathrsfs} —数学花体字符</p>
+    
+    <a class="article-more-a" href="/2020/08/28/latex%E6%8E%92%E7%89%88%E6%80%BB%E7%BB%93/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">latex排版总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/08/28/latex%E6%8E%92%E7%89%88%E6%80%BB%E7%BB%93/">展开全文 >></a>
     </p>
     
 
@@ -461,7 +679,7 @@
 <li>整理知识，学习笔记</li>
 <li>发布日记，杂文，所见所想</li>
 <li>撰写发布技术文稿（代码支持）</li>
-<li>撰写发布学术论文（LaTeX 公式支持）</li></ul></blockquote>
+<li>撰写发布学术论文（LaTeX 公式支持）
     
     <a class="article-more-a" href="/2020/08/19/my-new-Post/#more">more >></a>
     
@@ -636,6 +854,14 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">latex排版总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
